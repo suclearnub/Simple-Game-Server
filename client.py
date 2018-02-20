@@ -148,7 +148,7 @@ class Client:
             else:
                 raise Exception(data['message'])
         except ValueError:
-            print data
+            print(data)
 
     def get_messages(self):
         """
@@ -198,37 +198,37 @@ if __name__ == "__main__":
     client2 = Client("127.0.0.1", 1234, 1234, 1236)
     client3 = Client("127.0.0.1", 1234, 1234, 1237)
 
-    print "Client 1 : %s" % client1.identifier
-    print "Client 2 : %s" % client2.identifier
-    print "Client 3 : %s" % client3.identifier
+    print("Client 1 : %s" % client1.identifier)
+    print("Client 2 : %s" % client2.identifier)
+    print("Client 3 : %s" % client3.identifier)
 
     #  Create a room on server
     client1.create_room("Test room")
-    print "Client1 create room  %s" % client1.room_id
+    print("Client1 create room  %s" % client1.room_id)
 
     #  Get rooms list
     rooms = client1.get_rooms()
     selected_room = None
     if rooms is not None and len(rooms) != 0:
         for room in rooms:
-            print "Room %s (%d/%d)" % (room["name"],
+            print("Room %s (%d/%d)" % (room["name"],
                                        int(room["nb_players"]),
-                                       int(room["capacity"]))
+                                       int(room["capacity"])))
 
         # Get first room for tests
         selected_room = rooms[0]['id']
     else:
-        print "No rooms"
+        print("No rooms")
 
     #  Join client 1 room
     try:
         client2.join_room(selected_room)
         client3.join_room(selected_room)
     except Exception as e:
-        print "Error : %s" % str(e)
+        print("Error : %s" % str(e))
 
-    print "Client 2 join %s" % client2.room_id
-    print "Client 3 join %s" % client3.room_id
+    print("Client 2 join %s" % client2.room_id)
+    print("Client 3 join %s" % client3.room_id)
 
     #  Main game loop
     while True:
@@ -246,4 +246,4 @@ if __name__ == "__main__":
             for message in message:
                 message = json.loads(message)
                 sender, value = message.popitem()
-                print "%s say %s" % (value["name"], value["message"])
+                print("%s say %s" % (value["name"], value["message"]))
